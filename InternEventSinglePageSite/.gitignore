@@ -190,6 +190,7 @@ PublishScripts/
 *.nuget.g.targets
 
 bin*
+obj*
 # Microsoft Azure Build Output
 csx/
 *.build.csdef
