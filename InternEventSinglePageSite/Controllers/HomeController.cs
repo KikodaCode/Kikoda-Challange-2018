@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using InternEventSinglePageSite.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -16,6 +17,7 @@ namespace InternEventSinglePageSite.Controllers
         {
             
             SampleApiController rClient = new SampleApiController();
+            var results = new MovieViewModel();
             //string[] movieName = txtUri.Text.Split(null);
             //rClient.endPoint = rClient.endPoint + "Wonder+Woman";
             
@@ -28,31 +30,33 @@ namespace InternEventSinglePageSite.Controllers
             try
             {
                 Movie jPerson = JsonConvert.DeserializeObject<Movie>(strResponse);
+                List<MovieResults> list = new List<MovieResults>();
                 //debugOutput("Here are the titles\n");
                 //debugOutput(jPerson.ToString());
                 foreach (var item in jPerson.results)
                 {
                     string dateOfRelease = ((DateTime)item.release_date).ToShortDateString();
-                    if (dateOfRelease.Substring(dateOfRelease.Length - 4) == "2017")
-                    {
-                        ViewBag.TITLE = item.title;
-                        ViewBag.VOTE_AVERAGE = item.vote_average;
-                        ViewBag.RELEASE_DATE = dateOfRelease;
-                        ViewBag.PLOT = item.overview;
-                        //Console.WriteLine("Title: " + item.title);
+                    //if (dateOfRelease.Substring(dateOfRelease.Length - 4) == "2017")
+                    //{
+                        list.Add(item);
+                        //ViewBag.TITLE = item.title;
+                        //ViewBag.VOTE_AVERAGE = item.vote_average;
+                        //ViewBag.RELEASE_DATE = dateOfRelease;
+                        //ViewBag.PLOT = item.overview;
+                        ////Console.WriteLine("Title: " + item.title);
                         //Console.WriteLine("Review: " + item.vote_average + "/10");
                         //Console.WriteLine("Release Date: " + dateOfRelease);
                         //Console.WriteLine("Plot: " + item.overview);
-                    }
+                    //}
                 }
                 //debugOutput("Here is the Release Date " + jPerson);
-
+                results.MovieResults = new List<MovieResults>(list);
             }
             catch (Exception ex)
             {
                 Console.WriteLine("We had a problem " + ex.Message.ToString());
             }
-            return View();
+            return View(results);
         }
 
         // GET: /<controller>/

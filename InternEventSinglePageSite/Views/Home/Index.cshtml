@@ -1,4 +1,7 @@
-﻿<div class="container-fluid">
+﻿@using InternEventSinglePageSite.Models
+@model InternEventSinglePageSite.Models.MovieViewModel;
+
+<div class="container-fluid">
     <div class="row">
         <div class="col-12 bg-secondary" id="Home" style="height: 60em;">
             @Html.Partial("~/Views/Home/_Home.cshtml")
@@ -16,7 +19,7 @@
     </div>
     <div class="row">
         <div class="col-12 bg-danger" id="SampleApi" style="height: 60em;">
-            @Html.Partial("~/Views/Home/_SampleApi.cshtml")
+            @Html.Partial("~/Views/Home/_SampleApi.cshtml", Model)
         </div>
     </div>
     <div class="row">
