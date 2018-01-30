@@ -38,12 +38,13 @@ namespace InternEventSinglePageSite.Controllers
                     string dateOfRelease = ((DateTime)item.release_date).ToShortDateString();
                     //if (dateOfRelease.Substring(dateOfRelease.Length - 4) == "2017")
                     //{
+                        item.DOR = dateOfRelease;
                         list.Add(item);
                         //ViewBag.TITLE = item.title;
                         //ViewBag.VOTE_AVERAGE = item.vote_average;
                         //ViewBag.RELEASE_DATE = dateOfRelease;
                         //ViewBag.PLOT = item.overview;
-                        ////Console.WriteLine("Title: " + item.title);
+                        //Console.WriteLine("Title: " + item.title);
                         //Console.WriteLine("Review: " + item.vote_average + "/10");
                         //Console.WriteLine("Release Date: " + dateOfRelease);
                         //Console.WriteLine("Plot: " + item.overview);

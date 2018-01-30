@@ -8,5 +8,37 @@
 
 @foreach (var result in Model.MovieResults)
 {
-    <p>@result.title</p>
+    <div class="row">
+        <div class="col-md-2">
+            <label>Title: </label>
+        </div>
+        <div class="col-md-10">
+            @result.title
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>Released: </label>
+        </div>
+        <div class="col-md-10">
+            @result.DOR
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>Rating: </label>
+        </div>
+        <div class="col-md-10">
+            @result.vote_average / 10
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>Plot: </label>
+        </div>
+        <div class="col-md-10">
+            @result.overview
+        </div>
+    </div>
+    <br>
 }

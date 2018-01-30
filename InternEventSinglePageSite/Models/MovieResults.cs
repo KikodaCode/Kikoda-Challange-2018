@@ -15,5 +15,6 @@ namespace InternEventSinglePageSite.Models
         public bool adult { get; set; }
         public string overview { get; set; }
         public DateTime release_date { get; set; }
+        public string DOR { get; set; }
     }
 }
