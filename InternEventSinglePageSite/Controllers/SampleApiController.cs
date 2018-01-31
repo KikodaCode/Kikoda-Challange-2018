@@ -66,7 +66,6 @@ namespace InternEventSinglePageSite.Controllers
         [HttpPost]
         public IActionResult SearchMovie(MovieViewModel movieViewModel)
         {
-
             return RedirectToAction("Index", "Home", movieViewModel);
         }
     }

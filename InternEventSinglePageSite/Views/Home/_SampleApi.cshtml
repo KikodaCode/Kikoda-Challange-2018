@@ -7,7 +7,7 @@
             <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.id)
+                    Rating
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.title)
@@ -25,7 +25,13 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.id)
+                    @if (item.vote_average > 0)
+                    {
+                        @Html.DisplayFor(modelItem => item.vote_average) <span>/ 10</span>
+                    }else
+                    {
+                        <span>Not Rated</span>
+                    }
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.title)
