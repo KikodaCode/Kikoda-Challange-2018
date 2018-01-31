@@ -6,6 +6,7 @@ using System.Net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using InternEventSinglePageSite.Models;
 
 namespace InternEventSinglePageSite.Controllers
 {
@@ -60,6 +61,13 @@ namespace InternEventSinglePageSite.Controllers
 
 
             return strResponseValue;
+        }
+
+        [HttpPost]
+        public IActionResult SearchMovie(MovieViewModel movieViewModel)
+        {
+
+            return RedirectToAction("Index", "Home", movieViewModel);
         }
     }
 }

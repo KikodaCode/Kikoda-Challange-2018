@@ -8,5 +8,7 @@ namespace InternEventSinglePageSite.Models
     public class MovieViewModel
     {
         public List<MovieResults> MovieResults { get; set; }
+        public string SearchKey { get; set; }
+        public string SearchFormat { get; set; }
     }
 }

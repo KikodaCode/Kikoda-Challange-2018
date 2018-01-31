@@ -60,12 +60,6 @@ namespace InternEventSinglePageSite.Controllers
         }
 
         // GET: /<controller>/
-        public IActionResult About()
-        {
-            return View();
-        }
-
-        // GET: /<controller>/
         public IActionResult Instructions()
         {
             return View();
@@ -73,12 +67,6 @@ namespace InternEventSinglePageSite.Controllers
 
         // GET: /<controller>/
         public IActionResult SampleApi()
-        {
-            return View();
-        }
-
-        // GET: /<controller>/
-        public IActionResult Contact()
         {
             return View();
         }

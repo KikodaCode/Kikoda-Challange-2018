@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace InternEventSinglePageSite.Models
 {
@@ -14,6 +12,8 @@ namespace InternEventSinglePageSite.Models
         public string poster_path { get; set; }
         public bool adult { get; set; }
         public string overview { get; set; }
+
+        [DataType(DataType.Date)]
         public DateTime release_date { get; set; }
     }
 }

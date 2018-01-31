@@ -1,30 +1,32 @@
-﻿@using InternEventSinglePageSite.Models
-@model InternEventSinglePageSite.Models.MovieViewModel;
+﻿@model MovieViewModel;
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12 bg-secondary" id="Home" style="height: 60em;">
+        <div class="col-sm-12" id="Home" style="height: 60em; background-color: #062F4F">
             @Html.Partial("~/Views/Home/_Home.cshtml")
         </div>
     </div>
     <div class="row">
-        <div class="col-12 bg-primary" id="About" style="height: 60em;">
-            @Html.Partial("~/Views/Home/_About.cshtml")
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12 bg-info" id="Instructions" style="height: 60em;">
+        <div class="col-sm-12" id="Instructions" style="height: 60em; background-color: #813772">
             @Html.Partial("~/Views/Home/_Instructions.cshtml")
         </div>
     </div>
     <div class="row">
-        <div class="col-12 bg-danger" id="SampleApi" style="height: 60em;">
-            @Html.Partial("~/Views/Home/_SampleApi.cshtml", Model)
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12 bg-warning" id="Contact" style="height: 60em;">
-            @Html.Partial("~/Views/Home/_Contact.cshtml")
+        <div class="container col-sm-12" id="SampleApi" style="height: 60em; background-color: #B82601">
+            <div class="container-fluid m-2">
+                <label class="text-white">Search for a Movie: </label>
+                <form class="form-inline" asp-action="SearchMovie" asp-controller="SampleApi">
+                    <select asp-for="SearchFormat" class="dropdown" style="margin-right: 5px;">
+                        <option class="dropdown-item" value="0">By Actor</option>
+                        <option class="dropdown-item" value="1">By Company</option>
+                        <option class="dropdown-item" value="2" selected="selected">By Title</option>
+                        <option class="dropdown-item" value="3">By Year</option>
+                    </select>
+                    <input class="form-control col-sm-4" asp-for="SearchKey" type="text" placeholder="Search">
+                    <button class="btn btn-dark m-2" type="submit"><i class="fa fa-search"></i></button>
+                </form>
+                @Html.Partial("~/Views/Home/_SampleApi.cshtml", Model.MovieResults)
+            </div>
         </div>
     </div>
 </div>

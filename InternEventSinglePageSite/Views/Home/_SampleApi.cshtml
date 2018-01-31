@@ -1,12 +1,43 @@
-﻿
-@*
+﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@using InternEventSinglePageSite.Models
-@model InternEventSinglePageSite.Models.MovieViewModel;
-
-
-@foreach (var result in Model.MovieResults)
-{
-    <p>@result.title</p>
-}
+@model IEnumerable<MovieResults>
+    <div class="table-responsive">
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.overview)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.release_date)
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.title)
+                    </td>
+                    <td class="text-sm-left">
+                        @Html.DisplayFor(modelItem => item.overview)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.release_date)
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
