@@ -15,5 +15,6 @@ namespace InternEventSinglePageSite.Models
 
         [DataType(DataType.Date)]
         public DateTime release_date { get; set; }
+        public string DOR { get; set; }
     }
 }
