@@ -17,9 +17,11 @@
     @Html.Partial("~/Views/Home/_Instructions.cshtml")
 </div>
 
-<div id="SampleApi" style="height: Auto; min-height: 60em; background-color: #A3D65D">
+<div id="SampleApi" class="p-4" style="height: Auto; min-height: 60em; background-color: #A3D65D">
 
-    <div class="p-4">
+    <h1 class="my-5 text-white text-center display-4">Sample API</h1>
+
+    <div>
         <label class="text-white">Search for a Movie: </label>
         <form class="form-inline" asp-action="SearchMovie" asp-controller="SampleApi">
             <select asp-for="SearchFormat" class="dropdown form-control" style="margin-right: 5px;">
