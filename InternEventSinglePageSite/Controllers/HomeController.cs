@@ -1,11 +1,9 @@
-﻿using System;
+﻿using InternEventSinglePageSite.Models;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
-using InternEventSinglePageSite.Models;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,66 +11,25 @@ namespace InternEventSinglePageSite.Controllers
 {
     public class HomeController : Controller
     {
+        public JsonResult MovieByTitle()
+        {
+            return Json(new MovieDataService().GetByTitle("Wonder Woman"));
+        }
+
         public IActionResult Index(MovieViewModel mvm)
         {
-            SampleApiController rClient = new SampleApiController();
+            var client = new MovieDataService();
             var results = new MovieViewModel();
-            //string[] movieName = txtUri.Text.Split(null);
-            //rClient.endPoint = rClient.endPoint + "Wonder+Woman";
+            var movie = new Movie();
 
-            //rClient.endPoint = rClient.endPoint + "&page=1";
-            if (mvm.SearchKey == null || mvm.SearchKey == String.Empty)
-            {
-                rClient.endPoint = "https://api.themoviedb.org/3/discover/movie?api_key=05875cd50919223ef7db595c5c0743c4&page=1";
-                results.ReturnId = "Home";
-            }
-            else
-            {
-                results.ReturnId = "SampleApi";
-
-                switch (mvm.SearchFormat)
-                {
-                    case "2":
-                        rClient.endPoint = "http://api.themoviedb.org/3/search/movie?api_key=05875cd50919223ef7db595c5c0743c4&language=en-US&query=";
-                        string[] movieName = mvm.SearchKey.Split(null);
-                        int count = 0;
-                        foreach (var item in movieName)
-                        {
-                            if (count == 0)
-                            {
-                                rClient.endPoint = rClient.endPoint + $"{item}";
-                                count++;
-                            }
-                            else
-                            {
-                                rClient.endPoint = rClient.endPoint + $"+{item}";
-                            }
-                        }
-                        break;
-                    case "3":
-                        rClient.endPoint = $"https://api.themoviedb.org/3/discover/movie?primary_release_year={mvm.SearchKey}&page=1&include_video=false&include_adult=false&language=en-US&api_key=05875cd50919223ef7db595c5c0743c4";
-                        break;
-                    case "0":
-                    default:
-                        break;
-
-                }
-                rClient.endPoint = rClient.endPoint + $"&page=1";
-            }
-
-            string strResponse = string.Empty;
-            strResponse = rClient.makeRequest();
-
-            results.apiPath = rClient.endPoint;
-            results.apiResults = strResponse;
+            movie = client.SearchAllMovies();
+            results.ReturnId = "Home";
+            results.apiResults = movie.ToJson();
 
             List<MovieResults> list = new List<MovieResults>();
             try
             {
-                Movie jPerson = JsonConvert.DeserializeObject<Movie>(strResponse);
-
-
-                foreach (var item in jPerson.results)
+                foreach (var item in movie.results)
                 {
                     if (item.release_date != null && item.release_date != String.Empty)
                     {
@@ -89,7 +46,6 @@ namespace InternEventSinglePageSite.Controllers
             {
                 Debug.WriteLine("We had a problem " + ex.Message.ToString());
             }
-
             
             return View(results);
         }
@@ -110,6 +66,7 @@ namespace InternEventSinglePageSite.Controllers
             }
             return list;
         }
+        
         // GET: /<controller>/
         public IActionResult Instructions()
         {
