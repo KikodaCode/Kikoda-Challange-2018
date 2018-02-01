@@ -1,4 +1,6 @@
 ﻿body {
+    color: #fff;
+    background-color: #343a40;
 }
 
 .item img {
@@ -9,6 +11,23 @@
 .text-success {
     color: #A3D65D;
 }
+
+/*
+ * Global footer
+ */
+
+footer {
+    padding: 20px 30px;
+    text-align: center;
+}
+
+footer :last-child {
+    margin-bottom: 0;
+}
+
+/*
+ * Homepage panels
+ */
 
 .home-panel {
     min-height: 60em;
