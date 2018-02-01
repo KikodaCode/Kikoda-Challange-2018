@@ -85,9 +85,10 @@ namespace InternEventSinglePageSite.Controllers
                         int count = 0;
                         foreach (var item in movieName)
                         {
-                            if(count == 0)
+                            if (count == 0)
                             {
                                 rClient.endPoint = rClient.endPoint + $"{item}";
+                                count++;
                             }
                             else
                             {
@@ -95,19 +96,17 @@ namespace InternEventSinglePageSite.Controllers
                             }
                         }
                         break;
-                        //TODO
-                        case "3":
-                            rClient.endPoint = $"https://api.themoviedb.org/3/discover/movie?primary_release_year={mvm.SearchKey}&page=1&include_video=false&include_adult=false&language=en-US&api_key=05875cd50919223ef7db595c5c0743c4";
-                            break;
-                        case "0":
-                        default: 
+                    //TODO
+                    case "3":
+                        rClient.endPoint = $"https://api.themoviedb.org/3/discover/movie?primary_release_year={mvm.SearchKey}&page=1&include_video=false&include_adult=false&language=en-US&api_key=05875cd50919223ef7db595c5c0743c4";
+                        break;
+                    case "0":
+                    default:
                         break;
 
                 }
+                rClient.endPoint = rClient.endPoint + $"&page=1";
             }
-
-
-            //"https://api.themoviedb.org/3/search/movie?api_key=05875cd50919223ef7db595c5c0743c4&query=Wonder+Woman&page=1";
 
             string strResponse = string.Empty;
             strResponse = rClient.makeRequest();
@@ -115,18 +114,19 @@ namespace InternEventSinglePageSite.Controllers
             try
             {
                 Movie jPerson = JsonConvert.DeserializeObject<Movie>(strResponse);
-                
-             
+
+
                 foreach (var item in jPerson.results)
                 {
-                    if(item.release_date != null && item.release_date != String.Empty){
+                    if (item.release_date != null && item.release_date != String.Empty)
+                    {
                         string dateOfRelease = Convert.ToDateTime(item.release_date).ToShortDateString();
                         item.DOR = dateOfRelease;
                     }
                     item.poster_path = @"https://image.tmdb.org/t/p/w600_and_h900_bestv2" + item.poster_path;
                     list.Add(item);
                 }
-                
+
                 results.MovieResults = reOrder(mvm.SearchFormat, list);
             }
             catch (Exception ex)
@@ -136,9 +136,9 @@ namespace InternEventSinglePageSite.Controllers
             return View(results);
         }
 
-        private List<MovieResults> reOrder (string searchMethod, List<MovieResults> list)
+        private List<MovieResults> reOrder(string searchMethod, List<MovieResults> list)
         {
-            switch(searchMethod)
+            switch (searchMethod)
             {
                 case "2":
                     list = list.OrderByDescending(o => o.release_date).Take(10).ToList();
