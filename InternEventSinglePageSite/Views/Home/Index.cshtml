@@ -11,10 +11,10 @@
 <div id="SampleApi" class="home-panel home-panel-green">
 
     <h1>Sample API</h1>
-
+    
 
     <h4>Movie Search</h4>
-    <form class="form-inline mb-2" asp-action="SearchMovie" asp-controller="SampleApi">
+    <form class="form-inline mb-2" asp-action="SearchMovie" asp-controller="Home">
         <select asp-for="SearchFormat" class="dropdown form-control mr-2">
             <option class="dropdown-item" value="2" selected="selected">By Title</option>
             <option class="dropdown-item" value="0">By Actor</option>
@@ -28,8 +28,8 @@
 </div>
 
 
-@section Scripts
-    {
+@section Scripts 
+{
     <script>
         var returnId = '#' + '@Html.Raw(Model.ReturnId)';
         $(document).ready(function() {

@@ -24,9 +24,10 @@ namespace InternEventSinglePageSite.Controllers
 
             movie = client.SearchAllMovies();
             results.ReturnId = "Home";
-            results.apiResults = movie.ToJson();
+            results.ApiResults = movie.ToJson();
+            results.ApiPath = client.GetCurrentEndpoint();
 
-            List<MovieResults> list = new List<MovieResults>();
+            List <MovieResults> list = new List<MovieResults>();
             try
             {
                 foreach (var item in movie.results)
@@ -66,7 +67,13 @@ namespace InternEventSinglePageSite.Controllers
             }
             return list;
         }
-        
+
+        [HttpPost]
+        public IActionResult SearchMovie(MovieViewModel movieViewModel)
+        {
+            return RedirectToAction("Index", "Home", movieViewModel);
+        }
+
         // GET: /<controller>/
         public IActionResult Instructions()
         {

@@ -13,7 +13,7 @@ namespace InternEventSinglePageSite.Models
         public string SearchKey { get; set; }
         public string SearchFormat { get; set; }
         public string ReturnId { get; set; }
-        public string apiPath { get; set; }
-        public string apiResults { get; set; }
+        public string ApiPath { get; set; }
+        public string ApiResults { get; set; }
     }
 }

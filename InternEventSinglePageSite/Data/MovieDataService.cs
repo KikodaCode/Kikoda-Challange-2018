@@ -9,15 +9,17 @@ using System.Net;
 public class MovieDataService 
 {
     const string SUPER_SECRET_API_KEY = "05875cd50919223ef7db595c5c0743c4";
+    private string _endPoint;
 
     public MovieDataService()
     {
+        _endPoint = "";
     }
 
     public ICollection<MovieResults> GetByTitle(string title)
     {
-        var endpoint = $"https://api.themoviedb.org/3/search/movie?api_key={SUPER_SECRET_API_KEY}&language=en&query={WebUtility.UrlEncode(title)}";
-        var json = FetchData(endpoint);
+        _endPoint = $"https://api.themoviedb.org/3/search/movie?api_key={SUPER_SECRET_API_KEY}&language=en&query={WebUtility.UrlEncode(title)}";
+        var json = FetchData(_endPoint);
         var moviesByTitle = Newtonsoft.Json.JsonConvert.DeserializeObject<Movie>(json);
 
         return moviesByTitle.results;
@@ -25,8 +27,8 @@ public class MovieDataService
 
     public Movie SearchAllMovies()
     {
-        var endPoint = "https://api.themoviedb.org/3/discover/movie?api_key=05875cd50919223ef7db595c5c0743c4&page=1";
-        var json = FetchData(endPoint);
+        _endPoint = "https://api.themoviedb.org/3/discover/movie?api_key=05875cd50919223ef7db595c5c0743c4&page=1";
+        var json = FetchData(_endPoint);
         return Newtonsoft.Json.JsonConvert.DeserializeObject<Movie>(json);
     }
 
@@ -65,4 +67,6 @@ public class MovieDataService
         
         return string.Empty;
     }
+
+    public string GetCurrentEndpoint() => _endPoint;
 }
