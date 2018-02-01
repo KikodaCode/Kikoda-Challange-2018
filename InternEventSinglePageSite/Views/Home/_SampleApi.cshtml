@@ -7,16 +7,19 @@
             <thead>
             <tr>
                 <th>
-                    Rating
+
                 </th>
-                <th>
+                <th class="text-center">
                     @Html.DisplayNameFor(model => model.title)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.overview)
+                <th class="text-center" style="width:152px">
+                    @Html.DisplayNameFor(model => model.vote_average)
                 </th>
-                <th>
+                <th class="text-center" style="width:120px">
                     @Html.DisplayNameFor(model => model.release_date)
+                </th>
+                <th class="text-left">
+                    @Html.DisplayNameFor(model => model.overview)
                 </th>
             </tr>
             </thead>
@@ -24,23 +27,35 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>
+                    <td class="text-center">
+                        <img width="150" height="225" src="@Html.DisplayFor(modelItem => item.poster_path)" alt="@Html.DisplayFor(modelItem => item.title)"></img>
+                    </td>
+                    <td class="text-center">             
+                        @Html.DisplayFor(modelItem => item.title)
+                    </td>
+                    <td class="text-center">
                     @if (item.vote_average > 0)
                     {
-                        @Html.DisplayFor(modelItem => item.vote_average) <span>/ 10</span>
+                        <div class="rating">
+                        @for(var i = 0; i < item.vote_average / 2; i++)
+                        {
+                            <span>⭐</span>
+                        }
+                        @for(var j = item.vote_average / 2; j < 5; j++)
+                        {
+                            <span>✰</span>
+                        }
+                        </div>      
                     }else
                     {
                         <span>Not Rated</span>
                     }
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.title)
-                    </td>
-                    <td class="text-sm-left">
-                        @Html.DisplayFor(modelItem => item.overview)
-                    </td>
-                    <td>
+                    <td class="text-center">
                         @Html.DisplayFor(modelItem => item.release_date)
+                    </td>
+                    <td class="text-left">
+                        @Html.DisplayFor(modelItem => item.overview)
                     </td>
                 </tr>
             }

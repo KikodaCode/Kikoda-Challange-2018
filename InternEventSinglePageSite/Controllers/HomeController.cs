@@ -76,13 +76,33 @@ namespace InternEventSinglePageSite.Controllers
             }
             else
             {
-                rClient.endPoint = "http://api.themoviedb.org/3/search/movie?api_key=05875cd50919223ef7db595c5c0743c4&language=en&query=";
-                string[] movieName = mvm.SearchKey.Split(null);
-                foreach (var item in movieName)
+                switch (mvm.SearchFormat)
                 {
-                    rClient.endPoint = rClient.endPoint + $"+{item}";
+                    case "2":
+                        rClient.endPoint = "http://api.themoviedb.org/3/search/movie?api_key=05875cd50919223ef7db595c5c0743c4&language=en&query=";
+                        string[] movieName = mvm.SearchKey.Split(null);
+                        int count = 0;
+                        foreach (var item in movieName)
+                        {
+                            if(count == 0)
+                            {
+                                rClient.endPoint = rClient.endPoint + $"{item}";
+                            }
+                            else
+                            {
+                                rClient.endPoint = rClient.endPoint + $"+{item}";
+                            }
+                        }
+                        break;
+                        //TODO
+                        case "3":
+                            rClient.endPoint = $"https://api.themoviedb.org/3/discover/movie?primary_release_year={mvm.SearchKey}&page=1&include_video=false&include_adult=false&language=en-US&api_key=05875cd50919223ef7db595c5c0743c4";
+                            break;
+                        case "0":
+                        default: 
+                        break;
+
                 }
-                rClient.endPoint = rClient.endPoint + "&page=1";
             }
 
 
@@ -95,33 +115,39 @@ namespace InternEventSinglePageSite.Controllers
             {
                 Movie jPerson = JsonConvert.DeserializeObject<Movie>(strResponse);
                 List<MovieResults> list = new List<MovieResults>();
-                //debugOutput("Here are the titles\n");
-                //debugOutput(jPerson.ToString());
+             
                 foreach (var item in jPerson.results)
                 {
                     string dateOfRelease = ((DateTime)item.release_date).ToShortDateString();
-                    //if (dateOfRelease.Substring(dateOfRelease.Length - 4) == "2017")
-                    //{
+                    
                     item.DOR = dateOfRelease;
+                    item.poster_path = @"https://image.tmdb.org/t/p/w600_and_h900_bestv2" + item.poster_path;
                     list.Add(item);
-                    //ViewBag.TITLE = item.title;
-                    //ViewBag.VOTE_AVERAGE = item.vote_average;
-                    //ViewBag.RELEASE_DATE = dateOfRelease;
-                    //ViewBag.PLOT = item.overview;
-                    //Console.WriteLine("Title: " + item.title);
-                    //Console.WriteLine("Review: " + item.vote_average + "/10");
-                    //Console.WriteLine("Release Date: " + dateOfRelease);
-                    //Console.WriteLine("Plot: " + item.overview);
-                    //}
                 }
-                //debugOutput("Here is the Release Date " + jPerson);
-                results.MovieResults = new List<MovieResults>(list);
+                
+                results.MovieResults = reOrder(mvm.SearchFormat, list);
             }
             catch (Exception ex)
             {
                 Console.WriteLine("We had a problem " + ex.Message.ToString());
             }
             return View(results);
+        }
+
+        private List<MovieResults> reOrder (string searchMethod, List<MovieResults> list)
+        {
+            switch(searchMethod)
+            {
+                case "2":
+                    list = list.OrderByDescending(o => o.release_date).ToList();
+                    break;
+                case "3":
+                    list = list.OrderByDescending(o => o.vote_average).ToList();
+                    break;
+                default:
+                    break;
+            }
+            return list;
         }
         // GET: /<controller>/
         public IActionResult Instructions()

@@ -34,31 +34,35 @@ namespace InternEventSinglePageSite.Controllers
         public string makeRequest()
         {
             string strResponseValue = string.Empty;
-
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(endPoint);
 
             request.Method = httpMethod.ToString();
-
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            try
             {
-                if (response.StatusCode != HttpStatusCode.OK)
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
-                    throw new ApplicationException("error code: " + response.StatusCode.ToString());
-                }
-                // Process the response stream
-                using (Stream responseStream = response.GetResponseStream())
-                {
-                    if (responseStream != null)
+                    if (response.StatusCode != HttpStatusCode.OK)
                     {
-                        //TODO read in ithe stream from responseStream
-                        using (StreamReader reader = new StreamReader(responseStream))
-                        {
-                            strResponseValue = reader.ReadToEnd();
-                        } //End Stream Reader
+                        throw new ApplicationException("error code: " + response.StatusCode.ToString());
                     }
-                } //End using response stream
-            }// End Process Response
-
+                    // Process the response stream
+                    using (Stream responseStream = response.GetResponseStream())
+                    {
+                        if (responseStream != null)
+                        {
+                            // read in ithe stream from responseStream
+                            using (StreamReader reader = new StreamReader(responseStream))
+                            {
+                                strResponseValue = reader.ReadToEnd();
+                            } //End Stream Reader
+                        }
+                    } //End using response stream
+                }// End Process Response
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("We had a problem " + ex.Message.ToString());
+            }
 
             return strResponseValue;
         }
