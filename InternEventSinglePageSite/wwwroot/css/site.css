@@ -1,0 +1,11 @@
+﻿body {
+}
+
+.item img {
+    background: no-repeat center center;
+    background-size:100% auto;
+}
+
+.text-success {
+    color: #A3D65D;
+}
