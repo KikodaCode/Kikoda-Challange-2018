@@ -1,4 +1,10 @@
 ﻿body {
+    color: #fff;
+    background-color: #343a40;
+}
+
+a {
+    color: #fff;
 }
 
 .item img {
@@ -8,4 +14,50 @@
 
 .text-success {
     color: #A3D65D;
+}
+
+/*
+ * Global footer
+ */
+
+footer {
+    padding: 20px 30px;
+    text-align: center;
+}
+
+footer :last-child {
+    margin-bottom: 0;
+}
+
+/*
+ * Homepage panels
+ */
+
+.home-panel {
+    min-height: 60em;
+    padding: 70px 30px 50px;
+}
+.home-panel-blue {
+    background-color: #062F4F;
+    color: #fff;
+}
+.home-panel-purple {
+    background-color: #813772;
+    color: #fff;
+}
+.home-panel-green {
+    background-color: #A3D65D;
+    color: #fff;
+}
+.home-panel > h1 {
+    margin: 50px 0;
+    
+    line-height: 1.2;    
+    font-size: 3.5rem;
+    font-weight: 300;
+    text-align: center;
+}
+.home-panel > :first-child {
+    text-align: center;
+    margin-top: 0;
 }
