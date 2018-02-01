@@ -1,8 +1,12 @@
-﻿@model MovieViewModel;
-<script>
-    var returnId = '#' + @Model.ReturnId;
-    document.querySelector(returnId).scrollIntoView();
-</script>
+﻿@model MovieViewModel
+@*<script>
+    var returnId = '@Html.Raw(Json.Encode(Model))';
+    $(document).ready(function() {
+        $('html, body').animate({
+            scrollTop: $()
+        });
+    });
+</script>*@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12" id="Home" style="height: 60em; background-color: #062F4F">
