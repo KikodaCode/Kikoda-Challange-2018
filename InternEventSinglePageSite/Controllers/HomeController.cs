@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using InternEventSinglePageSite.Models;
@@ -37,9 +38,10 @@ namespace InternEventSinglePageSite.Controllers
                         int count = 0;
                         foreach (var item in movieName)
                         {
-                            if(count == 0)
+                            if (count == 0)
                             {
                                 rClient.endPoint = rClient.endPoint + $"{item}";
+                                count++;
                             }
                             else
                             {
@@ -47,56 +49,57 @@ namespace InternEventSinglePageSite.Controllers
                             }
                         }
                         break;
-                        //TODO
-                        case "3":
-                            rClient.endPoint = $"https://api.themoviedb.org/3/discover/movie?primary_release_year={mvm.SearchKey}&page=1&include_video=false&include_adult=false&language=en-US&api_key=05875cd50919223ef7db595c5c0743c4";
-                            break;
-                        case "0":
-                        default: 
+                    //TODO
+                    case "3":
+                        rClient.endPoint = $"https://api.themoviedb.org/3/discover/movie?primary_release_year={mvm.SearchKey}&page=1&include_video=false&include_adult=false&language=en-US&api_key=05875cd50919223ef7db595c5c0743c4";
+                        break;
+                    case "0":
+                    default:
                         break;
 
                 }
+                rClient.endPoint = rClient.endPoint + $"&page=1";
             }
-
-
-            //"https://api.themoviedb.org/3/search/movie?api_key=05875cd50919223ef7db595c5c0743c4&query=Wonder+Woman&page=1";
 
             string strResponse = string.Empty;
             strResponse = rClient.makeRequest();
-
+            List<MovieResults> list = new List<MovieResults>();
             try
             {
                 Movie jPerson = JsonConvert.DeserializeObject<Movie>(strResponse);
-                List<MovieResults> list = new List<MovieResults>();
-             
+
+
                 foreach (var item in jPerson.results)
                 {
-                    string dateOfRelease = ((DateTime)item.release_date).ToShortDateString();
-                    
-                    item.DOR = dateOfRelease;
+                    if (item.release_date != null && item.release_date != String.Empty)
+                    {
+                        string dateOfRelease = Convert.ToDateTime(item.release_date).ToShortDateString();
+                        item.DOR = dateOfRelease;
+                    }
                     item.poster_path = @"https://image.tmdb.org/t/p/w600_and_h900_bestv2" + item.poster_path;
                     list.Add(item);
                 }
+
                 results.MovieResults = reOrder(mvm.SearchFormat, list);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("We had a problem " + ex.Message.ToString());
+                Debug.WriteLine("We had a problem " + ex.Message.ToString());
             }
 
             
             return View(results);
         }
 
-        private List<MovieResults> reOrder (string searchMethod, List<MovieResults> list)
+        private List<MovieResults> reOrder(string searchMethod, List<MovieResults> list)
         {
-            switch(searchMethod)
+            switch (searchMethod)
             {
                 case "2":
-                    list = list.OrderByDescending(o => o.release_date).ToList();
+                    list = list.OrderByDescending(o => o.release_date).Take(10).ToList();
                     break;
                 case "3":
-                    list = list.OrderByDescending(o => o.vote_average).ToList();
+                    list = list.OrderByDescending(o => o.vote_average).Take(10).ToList();
                     break;
                 default:
                     break;

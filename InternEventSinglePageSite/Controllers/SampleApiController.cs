@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using InternEventSinglePageSite.Models;
+using System.Diagnostics;
 
 namespace InternEventSinglePageSite.Controllers
 {
@@ -34,6 +35,7 @@ namespace InternEventSinglePageSite.Controllers
         public string makeRequest()
         {
             string strResponseValue = string.Empty;
+            Debug.WriteLine(endPoint);
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(endPoint);
 
             request.Method = httpMethod.ToString();

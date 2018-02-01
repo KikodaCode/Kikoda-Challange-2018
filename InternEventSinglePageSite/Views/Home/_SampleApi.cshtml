@@ -52,7 +52,14 @@
                     }
                     </td>
                     <td class="text-center">
-                        @Html.DisplayFor(modelItem => item.release_date)
+                        @if (item.DOR != null && item.DOR != String.Empty)
+                        {
+                            @Html.DisplayFor(modelItem => item.DOR)
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.release_date)
+                        }
                     </td>
                     <td class="text-left">
                         @Html.DisplayFor(modelItem => item.overview)
