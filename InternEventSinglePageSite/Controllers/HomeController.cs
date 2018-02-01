@@ -54,12 +54,6 @@ namespace InternEventSinglePageSite.Controllers
         {
             switch (searchMethod)
             {
-                case "2":
-                    list = list.OrderByDescending(o => o.release_date).Take(10).ToList();
-                    break;
-                case "3":
-                    list = list.OrderByDescending(o => o.vote_average).Take(10).ToList();
-                    break;
                 default:
                     list = list.OrderByDescending(o => o.release_date).Take(10).ToList();
                     break;
