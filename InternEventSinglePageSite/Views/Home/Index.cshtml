@@ -7,35 +7,29 @@
         });
     });
 </script>*@
-<div class="container-fluid">
 
-    <div class="row">
-        <div class="col-sm-12" id="Home" style="height: 60em; background-color: #062F4F">
-            @Html.Partial("~/Views/Home/_Home.cshtml")
-        </div>
-    </div>
+<div id="Home" style="height: 60em; background-color: #062F4F">
+    @Html.Partial("~/Views/Home/_Home.cshtml")
+</div>
 
-    <div class="row">
-        <div class="col-sm-12" id="Instructions" style="height: 60em; background-color: #813772">
-            @Html.Partial("~/Views/Home/_Instructions.cshtml")
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="container col-sm-12" id="SampleApi" style="height: Auto; min-height: 60em; background-color: #A3D65D">
-            <div class="container-fluid m-2">
-                <label class="text-white">Search for a Movie: </label>
-                <form class="form-inline" asp-action="SearchMovie" asp-controller="SampleApi">
-                    <select asp-for="SearchFormat" class="dropdown form-control" style="margin-right: 5px;">
-                        <option class="dropdown-item" value="2" selected="selected">By Title</option>
-                        <option class="dropdown-item" value="0">By Actor</option>
-                        <option class="dropdown-item" value="3">By Year</option>
-                    </select>
-                    <input class="form-control col-sm-4" asp-for="SearchKey" type="text" placeholder="Search">
-                    <button class="btn btn-dark m-2" type="submit"><i class="fa fa-search"></i></button>
-                </form>
-                @Html.Partial("~/Views/Home/_SampleApi.cshtml", Model.MovieResults)
-            </div>
-        </div>
+<div id="Instructions" style="height: 60em; background-color: #813772">
+    @Html.Partial("~/Views/Home/_Instructions.cshtml")
+</div>
+
+<div id="SampleApi" style="height: Auto; min-height: 60em; background-color: #A3D65D">
+
+    <div class="p-4">
+        <label class="text-white">Search for a Movie: </label>
+        <form class="form-inline" asp-action="SearchMovie" asp-controller="SampleApi">
+            <select asp-for="SearchFormat" class="dropdown form-control" style="margin-right: 5px;">
+                <option class="dropdown-item" value="2" selected="selected">By Title</option>
+                <option class="dropdown-item" value="0">By Actor</option>
+                <option class="dropdown-item" value="3">By Year</option>
+            </select>
+            <input class="form-control col-sm-4" asp-for="SearchKey" type="text" placeholder="Search">
+            <button class="btn btn-dark m-2" type="submit"><i class="fa fa-search"></i></button>
+        </form>
+        @Html.Partial("~/Views/Home/_SampleApi.cshtml", Model.MovieResults)
     </div>
 </div>
