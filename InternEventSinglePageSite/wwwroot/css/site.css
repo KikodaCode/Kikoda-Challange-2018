@@ -3,6 +3,10 @@
     background-color: #343a40;
 }
 
+a {
+    color: #fff;
+}
+
 .item img {
     background: no-repeat center center;
     background-size:100% auto;
