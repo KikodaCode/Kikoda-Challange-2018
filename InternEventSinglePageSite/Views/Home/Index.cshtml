@@ -1,19 +1,10 @@
 ﻿@model MovieViewModel
-@*<script>
-    var returnId = '@Html.Raw(Json.Encode(Model))';
-    $(document).ready(function() {
-        $('html, body').animate({
-            scrollTop: $()
-        });
-    });
-</script>*@
-
 <div id="Home" class="home-panel home-panel-blue">
     @Html.Partial("~/Views/Home/_Home.cshtml")
 </div>
 
 
-<div id="Instructions" class="home-panel home-panel-purple">
+<div id="Resources" class="home-panel home-panel-purple">
     @Html.Partial("~/Views/Home/_Instructions.cshtml")
 </div>
 
@@ -35,3 +26,17 @@
 
     @Html.Partial("~/Views/Home/_SampleApi.cshtml", Model.MovieResults)
 </div>
+
+
+@section Scripts
+    {
+    <script>
+        var returnId = '#' + '@Html.Raw(Model.ReturnId)';
+        $(document).ready(function() {
+            $('html, body').animate({
+                    scrollTop: $(returnId).offset().top
+                },
+                'slow');
+        });
+    </script>
+}

@@ -34,3 +34,11 @@ $('a[href*="#"]')
             }
         }
     });
+
+$(document).ready(function () {
+    var returnId = '#' + '@Html.Raw(Model.ReturnId)';
+    $('html, body').animate({
+            scrollTop: $(returnId).offset().top
+        },
+        'slow');
+});
