@@ -21,17 +21,17 @@
 
     <h1>Sample API</h1>
 
-    <div>
-        <label class="text-white">Search for a Movie: </label>
-        <form class="form-inline" asp-action="SearchMovie" asp-controller="SampleApi">
-            <select asp-for="SearchFormat" class="dropdown form-control" style="margin-right: 5px;">
-                <option class="dropdown-item" value="2" selected="selected">By Title</option>
-                <option class="dropdown-item" value="0">By Actor</option>
-                <option class="dropdown-item" value="3">By Year</option>
-            </select>
-            <input class="form-control col-sm-4" asp-for="SearchKey" type="text" placeholder="Search">
-            <button class="btn btn-dark m-2" type="submit"><i class="fa fa-search"></i></button>
-        </form>
-        @Html.Partial("~/Views/Home/_SampleApi.cshtml", Model.MovieResults)
-    </div>
+
+    <h4>Movie Search</h4>
+    <form class="form-inline mb-2" asp-action="SearchMovie" asp-controller="SampleApi">
+        <select asp-for="SearchFormat" class="dropdown form-control mr-2">
+            <option class="dropdown-item" value="2" selected="selected">By Title</option>
+            <option class="dropdown-item" value="0">By Actor</option>
+            <option class="dropdown-item" value="3">By Year</option>
+        </select>
+        <input class="form-control mr-2" asp-for="SearchKey" type="text" placeholder="Search">
+        <button class="btn btn-dark" type="submit"><i class="fa fa-search"></i></button>
+    </form>
+
+    @Html.Partial("~/Views/Home/_SampleApi.cshtml", Model.MovieResults)
 </div>
