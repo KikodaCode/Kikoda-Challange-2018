@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using InternEventSinglePageSite.Models;
@@ -110,17 +111,18 @@ namespace InternEventSinglePageSite.Controllers
 
             string strResponse = string.Empty;
             strResponse = rClient.makeRequest();
-
+            List<MovieResults> list = new List<MovieResults>();
             try
             {
                 Movie jPerson = JsonConvert.DeserializeObject<Movie>(strResponse);
-                List<MovieResults> list = new List<MovieResults>();
+                
              
                 foreach (var item in jPerson.results)
                 {
-                    string dateOfRelease = ((DateTime)item.release_date).ToShortDateString();
-                    
-                    item.DOR = dateOfRelease;
+                    if(item.release_date != null && item.release_date != String.Empty){
+                        string dateOfRelease = Convert.ToDateTime(item.release_date).ToShortDateString();
+                        item.DOR = dateOfRelease;
+                    }
                     item.poster_path = @"https://image.tmdb.org/t/p/w600_and_h900_bestv2" + item.poster_path;
                     list.Add(item);
                 }
@@ -129,7 +131,7 @@ namespace InternEventSinglePageSite.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("We had a problem " + ex.Message.ToString());
+                Debug.WriteLine("We had a problem " + ex.Message.ToString());
             }
             return View(results);
         }
@@ -139,10 +141,10 @@ namespace InternEventSinglePageSite.Controllers
             switch(searchMethod)
             {
                 case "2":
-                    list = list.OrderByDescending(o => o.release_date).ToList();
+                    list = list.OrderByDescending(o => o.release_date).Take(10).ToList();
                     break;
                 case "3":
-                    list = list.OrderByDescending(o => o.vote_average).ToList();
+                    list = list.OrderByDescending(o => o.vote_average).Take(10).ToList();
                     break;
                 default:
                     break;

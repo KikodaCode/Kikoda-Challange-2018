@@ -22,8 +22,8 @@ namespace InternEventSinglePageSite.Models
         public string overview { get; set; }
 
         [DisplayName("Release Date")]
-        [DataType(DataType.Date)]
-        public DateTime release_date { get; set; }
+        
+        public string release_date { get; set; }
 
         public string DOR { get; set; }
     }
