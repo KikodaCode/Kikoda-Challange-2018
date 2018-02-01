@@ -23,7 +23,7 @@ namespace InternEventSinglePageSite.Controllers
             //rClient.endPoint = rClient.endPoint + "&page=1";
             if (mvm.SearchKey == null || mvm.SearchKey == String.Empty)
             {
-                rClient.endPoint = "https://api.themoviedb.org/3/search/movie?api_key=05875cd50919223ef7db595c5c0743c4&query=Wonder+Woman&page=1";
+                rClient.endPoint = "https://api.themoviedb.org/3/discover/movie?api_key=05875cd50919223ef7db595c5c0743c4&page=1";
                 results.ReturnId = "Home";
             }
             else
@@ -33,7 +33,7 @@ namespace InternEventSinglePageSite.Controllers
                 switch (mvm.SearchFormat)
                 {
                     case "2":
-                        rClient.endPoint = "http://api.themoviedb.org/3/search/movie?api_key=05875cd50919223ef7db595c5c0743c4&language=en&query=";
+                        rClient.endPoint = "http://api.themoviedb.org/3/search/movie?api_key=05875cd50919223ef7db595c5c0743c4&language=en-US&query=";
                         string[] movieName = mvm.SearchKey.Split(null);
                         int count = 0;
                         foreach (var item in movieName)
@@ -49,7 +49,6 @@ namespace InternEventSinglePageSite.Controllers
                             }
                         }
                         break;
-                    //TODO
                     case "3":
                         rClient.endPoint = $"https://api.themoviedb.org/3/discover/movie?primary_release_year={mvm.SearchKey}&page=1&include_video=false&include_adult=false&language=en-US&api_key=05875cd50919223ef7db595c5c0743c4";
                         break;
@@ -63,6 +62,10 @@ namespace InternEventSinglePageSite.Controllers
 
             string strResponse = string.Empty;
             strResponse = rClient.makeRequest();
+
+            results.apiPath = rClient.endPoint;
+            results.apiResults = strResponse;
+
             List<MovieResults> list = new List<MovieResults>();
             try
             {
@@ -102,6 +105,7 @@ namespace InternEventSinglePageSite.Controllers
                     list = list.OrderByDescending(o => o.vote_average).Take(10).ToList();
                     break;
                 default:
+                    list = list.OrderByDescending(o => o.release_date).Take(10).ToList();
                     break;
             }
             return list;
