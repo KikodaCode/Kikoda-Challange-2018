@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 
 namespace InternEventSinglePageSite.Models
 {
@@ -7,6 +8,8 @@ namespace InternEventSinglePageSite.Models
         public MovieViewModel()
         {
             ReturnId = "Home";
+            SearchKey = String.Empty;
+            SearchFormat = String.Empty;
         }
 
         public List<MovieResults> MovieResults { get; set; }

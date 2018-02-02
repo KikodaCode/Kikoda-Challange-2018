@@ -23,12 +23,29 @@
         <input class="form-control mr-2" asp-for="SearchKey" type="text" placeholder="Search">
         <button class="btn btn-dark" type="submit"><i class="fa fa-search"></i></button>
     </form>
+    
+    <ul class="nav nav-tabs">
+        <li class="active mr-2"><a href="#MovieTable">Results</a></li>
+        <li class="mr-2"><a href="#MovieSource">Source</a></li>
+    </ul>
+    
+    <div class="tab-content">
+        <div id="MovieTable" class="tab-pane fade show active">
+            @Html.Partial("~/Views/Home/_SampleApi.cshtml", Model.MovieResults)
+        </div>
+        
+        <div id="MovieSource" class="tab-pane fade mt-3" style="word-wrap: break-word;">
+            <h4>API: </h4>
+            <pre class="bg-light col-sm-6 text-center">@Model.ApiPath</pre>
+            <h4 class="mt-3">Returns: </h4>
+            <pre class="bg-light col-sm-6" style="height: 200px;">@Model.ApiResults</pre>
+        </div>
+    </div>
 
-    @Html.Partial("~/Views/Home/_SampleApi.cshtml", Model.MovieResults)
 </div>
 
 
-@section Scripts 
+@section Scripts
 {
     <script>
         var returnId = '#' + '@Html.Raw(Model.ReturnId)';
@@ -37,6 +54,13 @@
                     scrollTop: $(returnId).offset().top
                 },
                 'slow');
+
+        });
+        $(document).ready(function() {
+
+            $(".nav-tabs a").click(function() {
+                $(this).tab('show');
+            });
         });
     </script>
 }

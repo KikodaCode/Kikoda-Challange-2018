@@ -27,6 +27,11 @@ namespace InternEventSinglePageSite.Controllers
             results.ApiResults = movie.ToJson();
             results.ApiPath = client.GetCurrentEndpoint();
 
+            if (mvm.SearchFormat != String.Empty)
+            {
+                results.ReturnId = "SampleApi";
+            }
+
             List <MovieResults> list = new List<MovieResults>();
             try
             {
