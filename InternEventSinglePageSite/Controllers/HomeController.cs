@@ -22,16 +22,19 @@ namespace InternEventSinglePageSite.Controllers
             var results = new MovieViewModel();
             var movie = new Movie();
 
-            movie = client.SearchAllMovies();
-            results.ReturnId = "Home";
-            results.ApiResults = movie.ToJson();
-            results.ApiPath = client.GetCurrentEndpoint();
-
             if (mvm.SearchFormat != String.Empty)
             {
+                movie = client.GetByTitle(mvm.SearchKey.ToString());
                 results.ReturnId = "SampleApi";
             }
+            else
+            {
+                movie = client.SearchAllMovies();
+                results.ReturnId = "Home";
+            }
 
+            results.ApiResults = movie.ToJson();
+            results.ApiPath = client.GetCurrentEndpoint();
             List <MovieResults> list = new List<MovieResults>();
             try
             {

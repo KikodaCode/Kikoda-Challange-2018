@@ -16,13 +16,13 @@ public class MovieDataService
         _endPoint = "";
     }
 
-    public ICollection<MovieResults> GetByTitle(string title)
+    public Movie GetByTitle(string title)
     {
         _endPoint = $"https://api.themoviedb.org/3/search/movie?api_key={SUPER_SECRET_API_KEY}&language=en&query={WebUtility.UrlEncode(title)}";
         var json = FetchData(_endPoint);
         var moviesByTitle = Newtonsoft.Json.JsonConvert.DeserializeObject<Movie>(json);
 
-        return moviesByTitle.results;
+        return moviesByTitle;
     }
 
     public Movie SearchAllMovies()
